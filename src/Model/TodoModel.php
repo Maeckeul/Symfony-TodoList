@@ -48,12 +48,13 @@ class TodoModel {
         return self::$session->get('todos');
     }
 
-    public function findAll() {
+    public static function findAll() {
         
         return self::getTodos();
     }
 
-    public function find(int $id) {
+    public function find($id) {
+
         $tasks = self::getTodos();
 
         if(isset($tasks[$id])) {

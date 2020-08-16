@@ -28,7 +28,7 @@ class TodoController extends AbstractController {
      * 
      * @Route("/todo/{id}", name="todo_show", requirements={"id" = "\d+"}, methods={"GET"})
      */
-    public function todoShow(int $id) {
+    public function todoShow($id) {
 
         $todo = TodoModel::find($id);
 
@@ -48,9 +48,9 @@ class TodoController extends AbstractController {
      */
     public function todoSetStatus($id, $status, TodoModel $todoModel) {
 
-        $success = $todoModel->setStatus($id, $status);
+        $result = $todoModel->setStatus($id, $status);
 
-        if(!$success) {
+        if(!$result) {
             throw $this->createNotFoundException("Cette tâche n'existe pas !");
         }
 
@@ -65,10 +65,8 @@ class TodoController extends AbstractController {
     /**
      * Ajout d'une tâche
      * 
-     * @Route("todo/add", name="todo_add", methods={"POST"}, methods={"POST"})
-     * 
-     * La route est définie en POST parce qu'on veut ajouter une ressource sur le serveur
-     */
+     * @Route("todo/add", name="todo_add", requirements={"id" = "\d+"}, methods={"POST"})
+    */
     public function todoAdd(Request $request) {
         
         $task = $request->request->get('task');
@@ -78,6 +76,27 @@ class TodoController extends AbstractController {
         $this->addFlash(
             'success',
             'Une tâche a été ajoutée !'
+        );
+
+        return $this->redirectToRoute('todo_list');
+    }
+
+    /**
+     * Suppression d'une tâche d'une tâche
+     * 
+     * @Route("todo/{id}/delete", name="todo_delete", methods={"POST"})
+     */
+    public function todoDelete($id, TodoModel $todoModel) {
+
+        $result = $todoModel->delete($id);
+
+        if(!$result) {
+            throw $this->createNotFoundException("Cette tâche n'existe pas !");
+        }
+
+        $this->addFlash(
+            'warning',
+            'La tâche a été supprimée !'
         );
 
         return $this->redirectToRoute('todo_list');
