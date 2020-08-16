@@ -10,7 +10,7 @@ class DefaultController extends AbstractController {
     /**
      * Page d'acceuil
      * 
-     * @Route("/", name="homepage")
+     * @Route("/", name="homepage", methods={"GET"})
      */
     public function index() {
         return $this->render('default/index.html.twig');
