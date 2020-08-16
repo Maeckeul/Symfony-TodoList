@@ -1,12 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}TodoApp{% endblock %}</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/todo.css') }}">
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
+<body>
+    <header class="container">
+        <h1>TodoApp</h1>
+
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {# app est une variable insérée dans nos template par symfony, elle contient plein d'informations liée a notre application (sessions, request...). Dans request on peut trouver le nom de la route detectée par le routeur de symfony #}
+        
+        {% set route = app.request.get('_route') %}
+        <nav>
+            <ul class="nav nav-tabs">
+                <li class="{% if route == 'homepage' %}active{% endif %}">
+                    <a href="{{ path('homepage') }}">A propos</a>
+                </li>
+                <li class="{% if route == 'todo_list' %}active{% endif %}">
+                    <a href="{{ path('todo_list') }}">Todos</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    </main>
+    {% block javascripts %}{% endblock %}
+</body>
+
 </html>
