@@ -105,4 +105,9 @@ class TodoModel {
 
         self::setTodos($todos);
     }
+
+    public function reset() {
+
+        self::setTodos(self::$initTodos);
+    }
 }

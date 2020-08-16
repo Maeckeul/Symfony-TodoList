@@ -113,5 +113,15 @@ class TodoController extends AbstractController {
         return $this->redirectToRoute('todo_list');
     }
 
-    
+    /**
+     * Réinitialisation des tâches
+     * 
+     * @Route("/todos/reset", name="todo_reset", methods={"GET"})
+     */
+    public function resetTodos(TodoModel $todoModel) {
+
+        $todoModel->reset();
+
+        return $this->redirectToRoute('todo_list');
+    }
 }
