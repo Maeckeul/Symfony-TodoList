@@ -70,13 +70,24 @@ class TodoController extends AbstractController {
     public function todoAdd(Request $request) {
         
         $task = $request->request->get('task');
+
+        if(empty($task)) {
+
+            $this->addFlash(
+                'danger',
+                'On ne peut pas ajouter de tâches vides !'
+            );
+
+        } else {
+
         $todoModel = new TodoModel();
         $todoModel->add($task);
 
         $this->addFlash(
-            'success',
-            'Une tâche a été ajoutée !'
-        );
+                'success',
+                'Une tâche a été ajoutée !'
+            );
+        }
 
         return $this->redirectToRoute('todo_list');
     }
@@ -101,4 +112,6 @@ class TodoController extends AbstractController {
 
         return $this->redirectToRoute('todo_list');
     }
+
+    
 }
