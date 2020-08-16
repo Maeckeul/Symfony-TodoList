@@ -32,6 +32,10 @@ class TodoController extends AbstractController {
 
         $todo = TodoModel::find($id);
 
+        if(!$todo) {
+            throw $this->createNotFoundException("Cette tâche n'existe pas !");
+        }
+
         return $this->render('todo/single.html.twig', [
             'todo' => $todo
         ]);
