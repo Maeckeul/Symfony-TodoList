@@ -109,5 +109,7 @@ class TodoModel {
     public function reset() {
 
         self::setTodos(self::$initTodos);
+
+        //self::$session->set('todos', false);
     }
 }

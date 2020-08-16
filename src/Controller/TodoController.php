@@ -122,6 +122,11 @@ class TodoController extends AbstractController {
 
         $todoModel->reset();
 
+        $this->addFlash(
+            'info',
+            'Les tâches ont été réinitialisées !'
+        );
+
         return $this->redirectToRoute('todo_list');
     }
 }
