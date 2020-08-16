@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\TodoModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TodoController extends AbstractController {
@@ -52,7 +53,12 @@ class TodoController extends AbstractController {
      * 
      * La route est définie en POST parce qu'on veut ajouter une ressource sur le serveur
      */
-    public function todoAdd() {
+    public function todoAdd(Request $request) {
+        
+        $task = $request->request->get('task');
+        $todoModel = new TodoModel();
+        $todoModel->add($task);
 
+        return $this->redirectToRoute('todo_list');
     }
 }
