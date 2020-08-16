@@ -48,7 +48,11 @@ class TodoController extends AbstractController {
      */
     public function todoSetStatus($id, $status, TodoModel $todoModel) {
 
-        $todoModel->setStatus($id, $status);
+        $success = $todoModel->setStatus($id, $status);
+
+        if(!$success) {
+            throw $this->createNotFoundException("Cette tâche n'existe pas !");
+        }
 
         $this->addFlash(
             'info',
