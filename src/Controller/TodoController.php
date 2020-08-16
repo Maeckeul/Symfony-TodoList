@@ -40,11 +40,13 @@ class TodoController extends AbstractController {
     /**
      * Changement de statut
      * 
-     * @Route("/todo/{id}/{status}", name="todo_set_status", requirements={"id" = "\d+", "status" = "^done|undone$"}, methods={"POST"})
+     * @Route("/todo/{id}/{status}", name="todo_set_status", requirements={"id" = "\d+", "status" = "done|undone"}, methods={"GET"})
      */
-    public function todoSetStatus($id, $status) {
+    public function todoSetStatus($id, $status, TodoModel $todoModel) {
 
+        $todoModel->setStatus($id, $status);
 
+        return $this->redirectToRoute('todo_list');
     }
 
     /**
