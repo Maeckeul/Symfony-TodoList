@@ -46,6 +46,11 @@ class TodoController extends AbstractController {
 
         $todoModel->setStatus($id, $status);
 
+        $this->addFlash(
+            'info',
+            'Statut mis à jour !'
+        );
+
         return $this->redirectToRoute('todo_list');
     }
 
@@ -61,6 +66,11 @@ class TodoController extends AbstractController {
         $task = $request->request->get('task');
         $todoModel = new TodoModel();
         $todoModel->add($task);
+
+        $this->addFlash(
+            'success',
+            'Une tâche a été ajoutée !'
+        );
 
         return $this->redirectToRoute('todo_list');
     }
