@@ -110,6 +110,6 @@ class TodoModel {
 
         self::setTodos(self::$initTodos);
 
-        //self::$session->set('todos', false);
+        // self::$session->set('todos', false);
     }
 }
